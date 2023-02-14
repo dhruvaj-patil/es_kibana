@@ -43,6 +43,13 @@ docker-compose up -d
 ```
 
 This should download the required packages, build the images and setup the containers for you.
+![image](https://user-images.githubusercontent.com/46488345/218675861-266184de-18c4-4350-ab70-04d2057a20de.png)
 
+![image](https://user-images.githubusercontent.com/46488345/218676354-da1b843a-4772-4105-98dd-db89c0576063.png)
 
+After the process is complete you can take a look at your running containers using the following command:
+```
+docker ps -a
+```
+![image](https://user-images.githubusercontent.com/46488345/218677063-cc3ca0c6-40f9-4d5d-88fc-5d48b4edfb6e.png)
 
