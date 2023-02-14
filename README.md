@@ -53,3 +53,44 @@ docker ps -a
 ```
 ![image](https://user-images.githubusercontent.com/46488345/218677063-cc3ca0c6-40f9-4d5d-88fc-5d48b4edfb6e.png)
 
+
+# REST API's of Elastic Search
+
+Open the `http://localhost:5601`  on your dashboard it will redirect you to the login page
+![image](https://user-images.githubusercontent.com/46488345/218734868-597c1eba-8385-4a0c-ace3-d93e6b3763e2.png)
+
+Enter the username as `elastic` and password as the one that you have set in *.env* file
+
+Import the required data into Elastic Search.
+
+Go to Dev Tools:
+
+Search for available indexes using:
+```
+# get available indices in the system
+GET /_cluster/state?filter_path=metadata.indices.*.stat*
+```
+
+![image](https://user-images.githubusercontent.com/46488345/218784836-8c09a20e-eaa5-4ee9-87fd-3c0336c1bfea.png)
+
+
+For schema of the index
+```
+# get schema of the index
+GET /kibana_sample_data_flights/_mapping
+```
+![image](https://user-images.githubusercontent.com/46488345/218787355-4f568fb3-a474-4e71-9331-9a3561e1cf1b.png)
+
+
+Get data from an index
+```
+# get data in an index
+GET /kibana_sample_data_flights/_search
+```
+
+
+
+
+
+
+
