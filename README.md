@@ -65,7 +65,31 @@ Import the required data into Elastic Search.
 
 Go to Dev Tools:
 
-Search for available indexes using:
+
+### CRUD FOR INDEXES
+
+#### 1. CREATE INDEX - 
+``` PUT /my-test-index```
+
+#### 2. GET INDEX - 
+``` GET /my-test-index```
+
+#### 3. DELETE INDEX -
+``` DELETE /my-index-000001```
+
+#### 4. UPDATE INDEX MAPPING -
+```
+PUT /my-index-000001/_mapping
+{
+  "properties": {
+    "name": {
+      "type": "keyword"
+    }
+  }
+}
+```
+
+#### 5. Search for available indexes using
 ```
 # get available indices in the system
 GET /_cluster/state?filter_path=metadata.indices.*.stat*
@@ -74,7 +98,7 @@ GET /_cluster/state?filter_path=metadata.indices.*.stat*
 ![image](https://user-images.githubusercontent.com/46488345/218784836-8c09a20e-eaa5-4ee9-87fd-3c0336c1bfea.png)
 
 
-For schema of the index
+#### 6. For schema of the index
 ```
 # get schema of the index
 GET /kibana_sample_data_flights/_mapping
@@ -82,12 +106,85 @@ GET /kibana_sample_data_flights/_mapping
 ![image](https://user-images.githubusercontent.com/46488345/218787355-4f568fb3-a474-4e71-9331-9a3561e1cf1b.png)
 
 
-Get data from an index
+
+### CRUD fOR DOCUMENTS
+
+#### 1. Get data from an index -
 ```
 # get data in an index
 GET /kibana_sample_data_flights/_search
 ```
 
+#### 2. GET One Object in a index
+```
+Syntax:
+GET /<INDEX>/_doc/<ID>
+E.G:
+GET /kibana_sample_data_flights/_doc/kQLZT4YBiJoNOUFqknsz
+GET /kibana_sample_data_flights/_source/kQLZT4YBiJoNOUFqknsz
+```
+#### 3. Update Document in an index (partially updates the body)-
+```
+Syntax:
+POST /<INDEX>/_update/<ID>
+{
+"doc": <body>
+}
+
+POST /kibana_sample_data_flights/_update/kQLZT4YBiJoNOUFqknsz
+{
+  "doc": {
+    "DestCountry": "IN",
+    "OriginWeather": "Hail",
+    "OriginLocation": {
+      "lat": "19.0991",
+      "lon": "72.8744"
+    }
+  }
+}
+```
+
+#### 4. DELETE One Object in an index
+```
+DELETE /kibana_sample_data_flights/_doc/kQLZT4YBiJoNOUFqknsz
+```
+
+### FILTERS:
+
+```
+GET /kibana_sample_data_flights/_search?sort=FlightTimeHour
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "DestCountry": "US"
+          }
+        },
+        {
+          "match": {
+            "OriginCountry": "KR"
+          }
+        },
+        {
+          "range": {
+            "FlightTimeMin": {
+              "gte": 800,
+              "lte": 1000
+            }
+          }
+        }
+      ],
+      "filter": {
+        "term": {
+          "OriginWeather": "Sunny"
+        }
+      }
+    }
+  }
+}
+```
 
 
 
