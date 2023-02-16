@@ -75,11 +75,11 @@ Go to Dev Tools:
 ``` GET /my-test-index```
 
 #### 3. DELETE INDEX -
-``` DELETE /my-index-000001```
+``` DELETE /my-test-index```
 
 #### 4. UPDATE INDEX MAPPING -
 ```
-PUT /my-index-000001/_mapping
+PUT /my-test-index/_mapping
 {
   "properties": {
     "name": {
